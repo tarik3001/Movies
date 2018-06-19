@@ -7,28 +7,29 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapterViewHolder>{
 
-    private String [] mMovieData;
-    private Context mContext;
+    private List<Movie> mMovieData;
+    private Context context;
 
-    public MovieAdapter() {
+    public MovieAdapter(Context context, List<Movie> movieData) {
+        this.context = context;
+        this.mMovieData = movieData;
 
     }
 
-    public class MovieAdapterViewHolder extends RecyclerView.ViewHolder {
+    @Override
+    public void onBindViewHolder(@NonNull MovieAdapterViewHolder holder, int position) {
+        holder.mTitleTextView.setText(mMovieData.get(position).getTitle());
+        holder.mReleaseDateTextView.setText(mMovieData.get(position).getDate());
+        Picasso.with(context).load(mMovieData.get(position).getMoviePoster()).into(holder.mImageView);
 
-        public final ImageView mImageView;
-
-        public MovieAdapterViewHolder(View itemView) {
-            super(itemView);
-            mImageView = itemView.findViewById(R.id.image_data);
-        }
     }
 
     @NonNull
@@ -40,22 +41,25 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapter
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MovieAdapterViewHolder holder, int position) {
-        String movieImage = mMovieData[position];
-        Picasso.with(mContext).load(movieImage).into(holder.mImageView);
-
-    }
-
-    @Override
     public int getItemCount() {
         if (null == mMovieData)
             return 0;
-        return mMovieData.length;
+        return mMovieData.size();
     }
 
-    public void setMovieData(String [] movieData) {
-        mMovieData = movieData;
-        notifyDataSetChanged();
+    public class MovieAdapterViewHolder extends RecyclerView.ViewHolder {
+
+        public final TextView mTitleTextView;
+        public final TextView mReleaseDateTextView;
+        public final ImageView mImageView;
+
+        public MovieAdapterViewHolder(View itemView) {
+            super(itemView);
+
+            mTitleTextView = itemView.findViewById(R.id.title_text_view);
+            mReleaseDateTextView = itemView.findViewById(R.id.release_date_text_view);
+            mImageView = itemView.findViewById(R.id.image_data);
+        }
     }
 
 }

@@ -1,24 +1,28 @@
 package com.example.thodzic.movies;
 
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.widget.ImageView;
+import android.util.Log;
 
-
+import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    String SEARCH_TERM = "popular";
     private RecyclerView mRecyclerView;
     private MovieAdapter mMovieAdapter;
-    String SEARCH_TERM = "popular";
+    private GridLayoutManager gridLayoutManager;
+    private List<Movie> movieData;
 
     /*
     API KEY
@@ -31,53 +35,75 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mRecyclerView = findViewById(R.id.recycler_view);
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,
-                false);
-        mRecyclerView.setLayoutManager(layoutManager);
+        gridLayoutManager = new GridLayoutManager(this, 2);
+        mRecyclerView.setLayoutManager(gridLayoutManager);
         mRecyclerView.setHasFixedSize(true);
 
-        mMovieAdapter = new MovieAdapter();
+        mMovieAdapter = new MovieAdapter(this, movieData);
 
         mRecyclerView.setAdapter(mMovieAdapter);
+
+        movieData = new ArrayList<>();
 
         loadMovieData();
     }
 
-    private void showMovieDataView(){
-        mRecyclerView.setVisibility(View.VISIBLE);
-    }
 
     private void loadMovieData() {
         new FetchMovieTask().execute(SEARCH_TERM);
     }
 
-    public class FetchMovieTask extends AsyncTask<String, Void, String[]> {
+    public class FetchMovieTask extends AsyncTask<String, Void, Void> {
 
         @Override
-        protected String[] doInBackground(String... strings) {
+        protected Void doInBackground(String... strings) {
 
+            final String MOVIES_RESULTS = "results";
+            final String MOVIES_POSTER_IMAGE = "poster_path";
+            final String MOVIES_TITLE = "title";
+            final String RELEASE_DATE = "release_date";
             URL moviesUrl = NetworkUtils.buildUrl(SEARCH_TERM);
             try {
                 String jsonMoviesResponse = NetworkUtils.getReponseFromHttpUrl(moviesUrl);
 
-                String[] movieData = MoviesJsonUtils.getMovieData(MainActivity.this, jsonMoviesResponse);
+                JSONObject moviesJson = new JSONObject(jsonMoviesResponse);
 
-                return movieData;
-            } catch (IOException e) {
-                e.printStackTrace();
-                return null;
+                JSONArray moviesArray = moviesJson.getJSONArray(MOVIES_RESULTS);
+
+                for (int i = 0; i < moviesArray.length(); i++) {
+
+                    String moviePoster;
+                    String movieTitle;
+                    String movieReleaseDate;
+                    JSONObject movie = moviesArray.getJSONObject(i);
+
+                    moviePoster = ("http://image.tmdb.org/t/p/w185/" + movie.getString(MOVIES_POSTER_IMAGE));
+                    movieTitle = movie.getString(MOVIES_TITLE);
+                    movieReleaseDate = movie.getString(RELEASE_DATE);
+
+                    Log.i("MoviteTitle", movieTitle);
+                    Log.i("ReleaseDate", movieReleaseDate);
+                    Log.i("Image", moviePoster);
+
+                    Movie data = new Movie(movieTitle, movieReleaseDate, moviePoster);
+
+                    movieData.add(data);
+
+
+                }
+
+
             } catch (JSONException e) {
                 e.printStackTrace();
-                return null;
+            } catch (IOException e) {
+                e.printStackTrace();
             }
+            return null;
         }
 
         @Override
-        protected void onPostExecute(String[] movieData) {
-            if (movieData != null) {
-                showMovieDataView();
-                    mMovieAdapter.setMovieData(movieData);
-                }
-            }
+        protected void onPostExecute(Void aVoid) {
+            mMovieAdapter.notifyDataSetChanged();
         }
     }
+};
