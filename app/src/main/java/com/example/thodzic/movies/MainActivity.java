@@ -69,6 +69,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //Tell the new method to get the dat abased on the search term within the url.
+    private void loadMovieData() {
+        new FetchMovieTask().execute(SEARCH_TERM);
+    }
+
     //Inflate the menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -82,13 +87,17 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.sort_by_most_popular:
                 SEARCH_TERM = "popularity.desc";
+                loadMovieData();
+                mMovieAdapter.notifyDataSetChanged();
+                return true;
+            case R.id.sort_by_highest_rated:
+                SEARCH_TERM = "popularity.asc";
+                loadMovieData();
+                mMovieAdapter.notifyDataSetChanged();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
-    }
-
-    //Tell the new method to get the dat abased on the search term within the url.
-    private void loadMovieData() {
-        new FetchMovieTask().execute(SEARCH_TERM);
     }
 
     //We need to use an AsyncTask to perform the request to get the data.  The first argument

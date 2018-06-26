@@ -16,7 +16,7 @@ public class NetworkUtils {
     //These utilities will be used to communicate with the servers.
     private static final String TAG = NetworkUtils.class.getSimpleName();
 
-    private static final String BASE_URL = "https://api.themoviedb.org/3/discover/movie/";
+    private static final String BASE_URL = "https://api.themoviedb.org/3/discover/movie";
     private static final String API_KEY = "1f5029b7d824dee72f4d4a156dac90ed";
 
     //This builds the URL used to talk to movie database.
