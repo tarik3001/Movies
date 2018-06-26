@@ -1,6 +1,6 @@
 package com.example.thodzic.movies;
 
-//9.  This class represents a single data item
+//This class represents a single data item
 
 public class Movie {
 
@@ -11,7 +11,7 @@ public class Movie {
     private String VoteAverage;
     private String Plot;
 
-    //11.  Generate the class constructor (Command + N shortcut)
+    //Generate the class constructor (Command + N shortcut)
     public Movie(String title, String date, String moviePoster, String voteAverage, String plot) {
         Title = title;
         Date = date;
@@ -20,7 +20,7 @@ public class Movie {
         Plot = plot;
     }
 
-    //12.  Getters allow us to get the information we want from the list.
+    //Getters allow us to get the information we want from the list.
     public String getTitle() {
         return Title;
     }
@@ -33,7 +33,7 @@ public class Movie {
         return Date;
     }
 
-    //13.  Setters allow us to set the information from the list into the item
+    //Setters allow us to set the information from the list into the item
     public void setDate(String date) {
         Date = date;
     }

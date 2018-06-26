@@ -10,20 +10,20 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Scanner;
 
-//20.  Build the class which will build the URL and talk to the database.
+//Build the class which will build the URL and talk to the database.
 public class NetworkUtils {
 
     //These utilities will be used to communicate with the servers.
     private static final String TAG = NetworkUtils.class.getSimpleName();
 
-    private static final String BASE_URL = "https://api.themoviedb.org/3/movie/";
+    private static final String BASE_URL = "https://api.themoviedb.org/3/discover/movie/";
     private static final String API_KEY = "1f5029b7d824dee72f4d4a156dac90ed";
 
     //This builds the URL used to talk to movie database.
     public static URL buildUrl(String SEARCH_TERM) {
         Uri builtUri = Uri.parse(BASE_URL).buildUpon()
-                .appendPath(SEARCH_TERM)
                 .appendQueryParameter("api_key",API_KEY)
+                .appendQueryParameter("sort_by", SEARCH_TERM)
                 .build();
 
         URL url = null;

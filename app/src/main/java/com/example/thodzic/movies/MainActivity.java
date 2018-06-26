@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -15,21 +18,23 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-//1. Add internet permission in the android manifest file.
+//Add internet permission in the android manifest file.
 
 public class MainActivity extends AppCompatActivity {
 
-    //5. Declare some of the objects we are using.
-    String SEARCH_TERM = "popular";
+    public static final String TAG = "MainActivity";
+
+    //Declare some of the objects we are using.
+    String SEARCH_TERM = "popularity.desc";
     private RecyclerView mRecyclerView;
 
-    //6. GridLayoutManage will allow us to load our items in a grid.
+    //GridLayoutManage will allow us to load our items in a grid.
     private GridLayoutManager gridLayoutManager;
 
-    //7. Custoj Adapter lets us bind out data from the web server with our recylerview
+    //Custoj Adapter lets us bind out data from the web server with our recylerview
     private MovieAdapter mMovieAdapter;
 
-    //8. Need a list to store the data from the server.
+    //Need a list to store the data from the server.
     private List<Movie> movieData;
 
     /*
@@ -42,34 +47,51 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //14.  Reference the RecyclerView
+        //Reference the RecyclerView
         mRecyclerView = findViewById(R.id.recycler_view);
 
-        //15.  Reference the list.  This needs to be done before setting the adapter to the recycler
+        //Reference the list.  This needs to be done before setting the adapter to the recycler
         //view or the app will think there is an empty list.
         movieData = new ArrayList<>();
 
-        //16.  To update the list with items, we create a new method to do that.
+        //To update the list with items, we create a new method to do that.
         loadMovieData();
 
-        //21.Create a new grid layout manager in order to display data to a grid.
+        //Create a new grid layout manager in order to display data to a grid.
         gridLayoutManager = new GridLayoutManager(this, 3);
         mRecyclerView.setLayoutManager(gridLayoutManager);
 
-        //22.Bind the data we receive from the web server to the recyclerview itself.
+        //Bind the data we receive from the web server to the recyclerview itself.
         mMovieAdapter = new MovieAdapter(this, movieData);
 
-        //23.  Apply the adapter to the recyclerview.
+        //Apply the adapter to the recyclerview.
         mRecyclerView.setAdapter(mMovieAdapter);
 
     }
 
-    //17.  Tell the new method to get the dat abased on the search term within the url.
+    //Inflate the menu
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.sort_by_most_popular:
+                SEARCH_TERM = "popularity.desc";
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    //Tell the new method to get the dat abased on the search term within the url.
     private void loadMovieData() {
         new FetchMovieTask().execute(SEARCH_TERM);
     }
 
-    //18.  We need to use an AsyncTask to perform the request to get the data.  The first argument
+    //We need to use an AsyncTask to perform the request to get the data.  The first argument
     //we use a String because this will allow us to pass the url.
     public class FetchMovieTask extends AsyncTask<String, Void, Void> {
 
@@ -83,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
             final String VOTE_AVERAGE = "vote_average";
             final String PLOT = "overview";
 
-            //19.  Create the network request to download the JSON data from the url database.
+            //Create the network request to download the JSON data from the url database.
             URL moviesUrl = NetworkUtils.buildUrl(SEARCH_TERM);
             try {
                 //The response we get is in the form of JSON.
@@ -127,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
             return null;
         }
 
-        //35.  This is called when the network request is done.  We use this method to tell our
+        //This is called when the network request is done.  We use this method to tell our
         //custom adapter that there is a change in the data list so that it can load new cardview
         //widgets in the list.
         @Override
