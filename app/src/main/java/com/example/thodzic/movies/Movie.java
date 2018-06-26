@@ -4,7 +4,7 @@ package com.example.thodzic.movies;
 
 public class Movie {
 
-    //10.  Crrate the fields we need for this class
+    //Create the fields we need for this class
     private String Title;
     private String Date;
     private String MoviePoster;

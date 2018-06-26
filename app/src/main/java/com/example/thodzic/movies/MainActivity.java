@@ -137,9 +137,7 @@ public class MainActivity extends AppCompatActivity {
 
                     //Add the data items to our movieData list.
                     movieData.add(data);
-
                 }
-
 
             } catch (JSONException e) {
                 e.printStackTrace();
