@@ -17,7 +17,7 @@ public class NetworkUtils {
     private static final String TAG = NetworkUtils.class.getSimpleName();
 
     private static final String BASE_URL = "https://api.themoviedb.org/3/discover/movie";
-    private static final String API_KEY = "1f5029b7d824dee72f4d4a156dac90ed";
+    private static final String API_KEY = " ";
 
     //This builds the URL used to talk to movie database.
     public static URL buildUrl(String SEARCH_TERM) {

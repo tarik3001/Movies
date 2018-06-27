@@ -18,7 +18,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="20dp"
-        android:text="Movie Title" />
+        android:text="Movie Title"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/details_release_date"
@@ -26,6 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="20dp"
+        android:textStyle="bold"
         tools:text="Movie Release Date" />
 
     <TextView
@@ -34,6 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="20dp"
+        android:textStyle="bold"
         tools:text="Average" />
 
     <TextView
@@ -42,6 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="20dp"
-        tools:text="Setails" />
+        android:textStyle="bold"
+        tools:text="Details" />
 
 </LinearLayout>

@@ -3,4 +3,8 @@
     <string name="sorty_by">Sort By</string>
     <string name="most_popular">Most Popular</string>
     <string name="highest_rated">Highest Rated</string>
+    <string name="movie_title">Title: </string>
+    <string name="release_date">Release Date:</string>
+    <string name="vote_average">Average Rating: </string>
+    <string name="plot">Plot: </string>
 </resources>

@@ -15,7 +15,11 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 //Add internet permission in the android manifest file.
@@ -91,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                 mMovieAdapter.notifyDataSetChanged();
                 return true;
             case R.id.sort_by_highest_rated:
-                SEARCH_TERM = "popularity.asc";
+                SEARCH_TERM = "vote_average.desc";
                 loadMovieData();
                 mMovieAdapter.notifyDataSetChanged();
                 return true;
@@ -132,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
                     String moviePoster;
                     String movieTitle;
                     String movieReleaseDate;
+                    String movieReleaseDateFormatted;
                     String voteAverage;
                     String plot;
                     JSONObject movie = moviesArray.getJSONObject(i);
@@ -139,10 +144,12 @@ public class MainActivity extends AppCompatActivity {
                     moviePoster = ("http://image.tmdb.org/t/p/w185/" + movie.getString(MOVIES_POSTER_IMAGE));
                     movieTitle = movie.getString(MOVIES_TITLE);
                     movieReleaseDate = movie.getString(RELEASE_DATE);
+                    //formatted date to MMM dd, yyy
+                    movieReleaseDateFormatted = formatDate(movieReleaseDate);
                     voteAverage = movie.getString(VOTE_AVERAGE);
                     plot = movie.getString(PLOT);
 
-                    Movie data = new Movie(movieTitle, movieReleaseDate, moviePoster, voteAverage, plot);
+                    Movie data = new Movie(movieTitle, movieReleaseDateFormatted, moviePoster, voteAverage, plot);
 
                     //Add the data items to our movieData list.
                     movieData.add(data);
@@ -156,6 +163,12 @@ public class MainActivity extends AppCompatActivity {
             return null;
         }
 
+        @Override
+        protected void onPreExecute() {
+            movieData.clear();
+            super.onPreExecute();
+        }
+
         //This is called when the network request is done.  We use this method to tell our
         //custom adapter that there is a change in the data list so that it can load new cardview
         //widgets in the list.
@@ -163,5 +176,20 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             mMovieAdapter.notifyDataSetChanged();
         }
+
+        //Converts date from api from yyyy-mm-dd to MMM dd, yyyy
+        public String formatDate(String inputDate) {
+            DateFormat inputFormat = new SimpleDateFormat("yyyy-mm-dd");
+            DateFormat outputFormat = new SimpleDateFormat("MMM dd, yyyy");
+            String outputDate = null;
+            Date date;
+            try {
+                date = inputFormat.parse(inputDate);
+                outputDate = outputFormat.format(date);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            return outputDate;
+        }
     }
-};
+}

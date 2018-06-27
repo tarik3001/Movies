@@ -53,16 +53,16 @@ public class DetailsActivity extends AppCompatActivity {
         Picasso.with(this).load(imageUrl).into(poster);
 
         TextView name = findViewById(R.id.details_title);
-        name.setText(movieTitle);
+        name.setText((getResources().getString(R.string.movie_title)) + " " + movieTitle);
 
         TextView dateRelease = findViewById(R.id.details_release_date);
-        dateRelease.setText(releaseDate);
+        dateRelease.setText((getResources().getString(R.string.release_date)) + " " + releaseDate);
 
         TextView averageVote = findViewById(R.id.details_voter_average);
-        averageVote.setText(voteAverage);
+        averageVote.setText((getResources().getString(R.string.vote_average)) + " " + voteAverage);
 
         TextView moviePlot = findViewById(R.id.details_plot);
-        moviePlot.setText(plot);
+        moviePlot.setText((getResources().getString(R.string.plot)) + " " + plot);
 
     }
 }
