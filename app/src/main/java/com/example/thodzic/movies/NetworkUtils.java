@@ -16,13 +16,10 @@ public class NetworkUtils {
     //These utilities will be used to communicate with the servers.
     private static final String TAG = NetworkUtils.class.getSimpleName();
 
-    private static final String BASE_URL = "https://api.themoviedb.org/3/discover/movie";
-    private static final String API_KEY = " ";
-
     //This builds the URL used to talk to movie database.
     public static URL buildUrl(String SEARCH_TERM) {
-        Uri builtUri = Uri.parse(BASE_URL).buildUpon()
-                .appendQueryParameter("api_key",API_KEY)
+        Uri builtUri = Uri.parse(Constants.BASE_URL).buildUpon()
+                .appendQueryParameter("api_key", Constants.API_KEY)
                 .appendQueryParameter("sort_by", SEARCH_TERM)
                 .build();
 

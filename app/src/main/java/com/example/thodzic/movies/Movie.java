@@ -2,7 +2,10 @@ package com.example.thodzic.movies;
 
 //This class represents a single data item
 
-public class Movie {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Movie implements Parcelable {
 
     //Create the fields we need for this class
     private String Title;
@@ -18,6 +21,27 @@ public class Movie {
         MoviePoster = moviePoster;
         VoteAverage = voteAverage;
         Plot = plot;
+    }
+
+    public static final Creator<Movie> CREATOR = new Creator<Movie>() {
+        @Override
+        public Movie createFromParcel(Parcel in) {
+            return new Movie(in);
+        }
+
+        @Override
+        public Movie[] newArray(int size) {
+            return new Movie[size];
+        }
+    };
+
+    //New constructor which gets the parcelable in.
+    protected Movie(Parcel in) {
+        Title = in.readString();
+        Date = in.readString();
+        MoviePoster = in.readString();
+        VoteAverage = in.readString();
+        Plot = in.readString();
     }
 
     //Getters allow us to get the information we want from the list.
@@ -60,5 +84,19 @@ public class Movie {
 
     public void setMoviePoster(String moviePoster) {
         MoviePoster = moviePoster;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(Title);
+        dest.writeString(Date);
+        dest.writeString(MoviePoster);
+        dest.writeString(VoteAverage);
+        dest.writeString(Plot);
     }
 }

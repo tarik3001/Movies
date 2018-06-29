@@ -26,10 +26,8 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String TAG = "MainActivity";
-
     //Declare some of the objects we are using.
-    String SEARCH_TERM = "popularity.desc";
+    private static String SearchTerm = Constants.POPULARITY_SEARCH_TERM;
     private RecyclerView mRecyclerView;
 
     //GridLayoutManage will allow us to load our items in a grid.
@@ -75,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
 
     //Tell the new method to get the dat abased on the search term within the url.
     private void loadMovieData() {
-        new FetchMovieTask().execute(SEARCH_TERM);
+        new FetchMovieTask().execute(SearchTerm);
     }
 
     //Inflate the menu
@@ -90,12 +88,12 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.sort_by_most_popular:
-                SEARCH_TERM = "popularity.desc";
+                SearchTerm = Constants.POPULARITY_SEARCH_TERM;
                 loadMovieData();
                 mMovieAdapter.notifyDataSetChanged();
                 return true;
             case R.id.sort_by_highest_rated:
-                SEARCH_TERM = "vote_average.desc";
+                SearchTerm = Constants.TOP_RATED_SEARCH_TERM;
                 loadMovieData();
                 mMovieAdapter.notifyDataSetChanged();
                 return true;
@@ -117,9 +115,10 @@ public class MainActivity extends AppCompatActivity {
             final String RELEASE_DATE = "release_date";
             final String VOTE_AVERAGE = "vote_average";
             final String PLOT = "overview";
+            final String POSTER_IMAGE_URL = "http://image.tmdb.org/t/p/w185/";
 
             //Create the network request to download the JSON data from the url database.
-            URL moviesUrl = NetworkUtils.buildUrl(SEARCH_TERM);
+            URL moviesUrl = NetworkUtils.buildUrl(SearchTerm);
             try {
                 //The response we get is in the form of JSON.
                 String jsonMoviesResponse = NetworkUtils.getReponseFromHttpUrl(moviesUrl);
@@ -141,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
                     String plot;
                     JSONObject movie = moviesArray.getJSONObject(i);
 
-                    moviePoster = ("http://image.tmdb.org/t/p/w185/" + movie.getString(MOVIES_POSTER_IMAGE));
+                    moviePoster = (POSTER_IMAGE_URL + movie.getString(MOVIES_POSTER_IMAGE));
                     movieTitle = movie.getString(MOVIES_TITLE);
                     movieReleaseDate = movie.getString(RELEASE_DATE);
                     //formatted date to MMM dd, yyy
