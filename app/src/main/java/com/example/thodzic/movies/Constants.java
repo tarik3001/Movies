@@ -7,7 +7,7 @@ public class Constants {
     public static final String POPULARITY_SEARCH_TERM = "popularity.desc";
     public static final String TOP_RATED_SEARCH_TERM = "top_rated.desc";
     public static final String BASE_URL = "https://api.themoviedb.org/3/discover/movie";
-    public static final String API_KEY = "1f5029b7d824dee72f4d4a156dac90ed";
+    public static final String API_KEY = "";
 
 
 }
