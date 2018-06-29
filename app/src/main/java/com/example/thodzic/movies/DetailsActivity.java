@@ -1,5 +1,6 @@
 package com.example.thodzic.movies;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -23,37 +24,20 @@ public class DetailsActivity extends AppCompatActivity {
         //Log for debugging so we can tell if activity started successfully.
         Log.d(TAG, "onCreate: started.");
 
-        getIncomingIntent();
-    }
+        Intent intent = getIntent();
+        Movie movie = intent.getParcelableExtra("movie");
 
-    //Retrieve our intent extras and set them to the views.
-    private void getIncomingIntent() {
-        Log.d(TAG, "Checking for incoming intents");
-        //Need to make sure that the intent actually has extras or the app will crash.
-        if (getIntent().hasExtra("movie_title") && getIntent().hasExtra("poster")
-                && getIntent().hasExtra("release_date") && getIntent().hasExtra("vote_average")
-                && getIntent().hasExtra("plot")) {
-            Log.d(TAG, "Found intent extras.");
-
-            String movieTitle = getIntent().getStringExtra("movie_title");
-            String poster = getIntent().getStringExtra("poster");
-            String releaseDate = getIntent().getStringExtra("release_date");
-            String voteAverage = getIntent().getStringExtra("vote_average");
-            String plot = getIntent().getStringExtra("plot");
-
-            setData(poster, movieTitle, releaseDate, voteAverage, plot);
-        }
-    }
-
-    private void setData(String imageUrl, String movieTitle, String releaseDate, String voteAverage,
-                         String plot) {
-        Log.d(TAG, "Setting the data to the views");
+        String image = movie.getMoviePoster();
+        String title = movie.getTitle();
+        String releaseDate = movie.getDate();
+        String voteAverage = movie.getVoteAverage();
+        String plot = movie.getPlot();
 
         ImageView poster = findViewById(R.id.details_image);
-        Picasso.with(this).load(imageUrl).into(poster);
+        Picasso.with(this).load(image).into(poster);
 
         TextView name = findViewById(R.id.details_title);
-        name.setText((getResources().getString(R.string.movie_title)) + " " + movieTitle);
+        name.setText((getResources().getString(R.string.movie_title)) + " " + title);
 
         TextView dateRelease = findViewById(R.id.details_release_date);
         dateRelease.setText((getResources().getString(R.string.release_date)) + " " + releaseDate);

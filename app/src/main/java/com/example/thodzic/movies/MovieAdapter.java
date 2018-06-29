@@ -47,11 +47,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapter
                 Intent intent = new Intent(context, DetailsActivity.class);
                 //Attach extras to the intent because we needDetailsActivity to know which
                 //item we clicked on.
-                intent.putExtra("movie_title", mMovieData.get(position).getTitle());
-                intent.putExtra("poster", mMovieData.get(position).getMoviePoster());
-                intent.putExtra("release_date", mMovieData.get(position).getDate());
-                intent.putExtra("vote_average", mMovieData.get(position).getVoteAverage());
-                intent.putExtra("plot", mMovieData.get(position).getPlot());
+                intent.putExtra("movie", mMovieData.get(position));
                 //Start the activity and send it over. We need to use context here because
                 //we are in an adapter class and it doesn't know what the context is.
                 context.startActivity(intent);
