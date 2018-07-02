@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -6,69 +9,70 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/details_image"
-        android:layout_width="150dp"
-        android:layout_height="200dp"
-        android:layout_gravity="center_horizontal"
-        android:scaleType="centerCrop" />
+        <ImageView
+            android:id="@+id/details_image"
+            android:layout_width="150dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center_horizontal"
+            android:scaleType="centerCrop" />
 
-    <TextView
-        android:id="@+id/details_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="4dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="8dp"
-        android:text="Movie Title"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/details_image"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/details_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="4dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:text="Movie Title"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/details_image"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/details_release_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/details_title"
-        android:layout_marginLeft="4dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="8dp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/details_image"
-        app:layout_constraintTop_toBottomOf="@+id/details_title"
-        tools:text="Movie Release Date" />
+        <TextView
+            android:id="@+id/details_release_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/details_title"
+            android:layout_marginLeft="4dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/details_image"
+            app:layout_constraintTop_toBottomOf="@+id/details_title"
+            tools:text="Movie Release Date" />
 
-    <TextView
-        android:id="@+id/details_voter_average"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="4dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="8dp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/details_image"
-        app:layout_constraintTop_toBottomOf="@+id/details_release_date"
-        tools:text="Average" />
+        <TextView
+            android:id="@+id/details_voter_average"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="4dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/details_image"
+            app:layout_constraintTop_toBottomOf="@+id/details_release_date"
+            tools:text="Average" />
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    </ScrollView>
+        </ScrollView>
 
-    <TextView
-        android:id="@+id/details_plot"
-        android:layout_width="368dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/details_image"
-        tools:layout_editor_absoluteX="8dp"
-        tools:text="Details" />
+        <TextView
+            android:id="@+id/details_plot"
+            android:layout_width="368dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@+id/details_image"
+            tools:layout_editor_absoluteX="8dp"
+            tools:text="Details" />
 
 </android.support.constraint.ConstraintLayout>
+</ScrollView>

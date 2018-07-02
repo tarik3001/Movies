@@ -1,5 +1,8 @@
 package com.example.thodzic.movies;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     //GridLayoutManage will allow us to load our items in a grid.
     private GridLayoutManager gridLayoutManager;
 
-    //Custoj Adapter lets us bind out data from the web server with our recylerview
+    //Custom Adapter lets us bind out data from the web server with our recylerview
     private MovieAdapter mMovieAdapter;
 
     //Need a list to store the data from the server.
@@ -73,7 +77,17 @@ public class MainActivity extends AppCompatActivity {
 
     //Tell the new method to get the dat abased on the search term within the url.
     private void loadMovieData() {
-        new FetchMovieTask().execute(SearchTerm);
+        //If there is a network connection, fetch the data.
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+        if (isConnected) {
+            new FetchMovieTask().execute(SearchTerm);
+        } else {
+            Toast toast = Toast.makeText(this, getString(R.string.no_internet_toast), Toast.LENGTH_LONG);
+            toast.show();
+        }
     }
 
     //Inflate the menu

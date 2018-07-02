@@ -7,4 +7,5 @@
     <string name="release_date">Release Date:</string>
     <string name="vote_average">Average Rating: </string>
     <string name="plot">Plot: </string>
+    <string name="no_internet_toast">There is no internet connectivity</string>
 </resources>

@@ -20,7 +20,7 @@ public class NetworkUtils {
     public static URL buildUrl(String SEARCH_TERM) {
         Uri builtUri = Uri.parse(Constants.BASE_URL).buildUpon()
                 .appendQueryParameter("api_key", Constants.API_KEY)
-                .appendQueryParameter("sort_by", SEARCH_TERM)
+                .appendPath(SEARCH_TERM)
                 .build();
 
         URL url = null;

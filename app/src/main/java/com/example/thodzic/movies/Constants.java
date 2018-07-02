@@ -4,9 +4,9 @@ package com.example.thodzic.movies;
 
 public class Constants {
 
-    public static final String POPULARITY_SEARCH_TERM = "popularity.desc";
-    public static final String TOP_RATED_SEARCH_TERM = "top_rated.desc";
-    public static final String BASE_URL = "https://api.themoviedb.org/3/discover/movie";
+    public static final String POPULARITY_SEARCH_TERM = "popular";
+    public static final String TOP_RATED_SEARCH_TERM = "top_rated";
+    public static final String BASE_URL = "https://api.themoviedb.org/3/movie";
     public static final String API_KEY = "";
 
 
